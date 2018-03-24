@@ -26,16 +26,20 @@ if (say == 1) {
             // ボタンに画像を再設定
             label1.setIcon(new ImageIcon(alphaImage));
 
-            // アルファが0(完全に透明)になったらアニメ終了
+            // アルファが0(完全に透明)になったらアニメ終了処理を始める
             if (alf == 0) {
                 timer.stop();
+                // 画面遷移開始
+                // もう見えないけど、今のタイトル画面画像を外す
                 p.remove(label1);
+                // 次の画面のオブジェクトを張る
                 p.add(label2);
                 label2.add(labeltext3);
                 repaint();
             }
         }
     });
+
     // フェードアウトのアニメ開始
     timer.start();
 
