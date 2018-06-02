@@ -11,8 +11,8 @@ public class Main  {
     for (int i = 0; i < scores.length; i++) {
       int num = readStudentNumber(sc, scores);
       scores[num - 1][0] = readScore(sc, "英語");
-      scores[num - 1][1] = readScore(sc, "国語");
-      scores[num - 1][2] = readScore(sc, "数学");
+      scores[num - 1][1] = readScore(sc, "数学");
+      scores[num - 1][2] = readScore(sc, "国語");
     }
 
     // 出力
