@@ -24,6 +24,6 @@ public static String judgeGame(String handA, String handB) {
       break;
   }
 
-  if (ret.isEmpty()) new IllegalArgumentException("引数がおかしい(" + handA + "," + handB + ")");
+  if (ret.isEmpty()) throw new IllegalArgumentException("引数がおかしい(" + handA + "," + handB + ")");
   return ret;
 }
