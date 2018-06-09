@@ -45,6 +45,6 @@ public class Main {
      * @param matrix 表示対象の行列
      */
     public static void showMatrix(double[][] matrix) {
-        for (double[] low : matrix) System.out.println(java.util.Arrays.toString(low));
+        for (double[] row : matrix) System.out.println(java.util.Arrays.toString(row));
     }
 }
