@@ -5,7 +5,7 @@
 <script>
 var arr = ["寒","寒寒","寒寒寒","暖","暖暖","暖暖暖","暖暖暖暖"];
 var count = 0;
-function task(){
+function task() {
   var output = document.forms[0]["output"];
   output.value = arr[(count++) % 7];
 }
