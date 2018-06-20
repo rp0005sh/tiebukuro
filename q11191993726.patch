@@ -1,0 +1,48 @@
+//情報設定
+int[] x, y, w, h;
+int i;
+int coler = 255;
+int area;
+int max = 0;
+- int max_i = 0;
++ java.util.Set<Integer> set = new java.util.HashSet<Integer>();
+
+//x、y座標、縦横の長さの個数
+x = new int[100];
+y = new int[100];
+w = new int[100];
+h = new int[100];
+
+//基本設定
+area = 0;
+size(400, 300);
+background(255);
+
+//四角形の配置位置、面積の設定
+for (i = 0; i < 100; ++i) {
+
+  x[i] = int(random(width));
+  y[i] = int(random(height));
+  w[i] = int(random(1, 100));
+  h[i] = int(random(1, 100));
+  area = w[i] * h[i];
+  fill(coler - area/39, 100);
+  rect(x[i], y[i], w[i], h[i]);
+  //最大値の面積への対応
+-  if (max <= (area)) {
+-    max = area;
+-    max_i = i;
+-  }
++  if (max < (area)) {
++    max = area;
++    set.clear();
++    set.add(i);
++  } else if(max == area) {
++    set.add(i);
++  }
+}
+// 赤色に塗る
+fill(255, 0, 0);
++ for (int max_i : set) {
+    rect(x[max_i], y[max_i], w[max_i], h[max_i]);
++ }
