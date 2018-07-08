@@ -1,0 +1,46 @@
+public class MainActivity extends AppCompatActivity implements SensorEventListener
+{
+
+    SensorManager mSensorManager;
+    Sensor mAccelerometer;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSensorManager.unregisterListener(this, mAccelerometer);
+        //センサマネージャーからリスナを解除
+    }
+
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        TextView accel_x = (TextView) findViewById(R.id.Accel_X);
+        TextView accel_y = (TextView) findViewById(R.id.Accel_Y);
+        TextView accel_z = (TextView) findViewById(R.id.Accel_Z);
+
+        switch (event.sensor.getType()) {
+            case Sensor.TYPE_ACCELEROMETER:
+                //各軸の加速度センサ値をTextViewに表示
++                if (accel_x != null) accel_x.setText(String.valueOf(event.values[0]));
++                if (accel_y != null) accel_x.setText(String.valueOf(event.values[1]));
++                if (accel_z != null) accel_x.setText(String.valueOf(event.values[2]));
++                break;
+        }
+    }
+    //必要なメソッドを記述
+    public void onAccuracyChanged(Sensor sensor, int accuracy){
+
+    }
+}
