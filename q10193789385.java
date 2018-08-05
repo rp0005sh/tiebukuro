@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Main {
@@ -11,13 +10,13 @@ public class Main {
 
         // ベンフォードに変換して、ヒストグラムを作る
         int[] hist = new int[9];
-        Arrays.stream(receipt)
+    	IntStream.of(receipt)
             .map(num -> String.valueOf(num).charAt(0) - '0')
             .forEach(num -> hist[num - 1]++);
         showHistogram(hist, 1);
 
         // 適合度検定でベンフォードの法則に従っているのかチェック
-        int sum = Arrays.stream(hist).sum();
+        int sum = IntStream.of(hist).sum();
         double[] model = IntStream.rangeClosed(1, 9)
                 .mapToDouble(num -> Math.log10(1 + 1.0 / num) * sum).toArray();
         double value = IntStream.range(0, 9)
@@ -39,17 +38,15 @@ public class Main {
      */
     public static void showHistogram(int[] hist, int dx) {
         StringBuilder sb = new StringBuilder("=== ヒストグラム ===");
-        sb.append(System.getProperty("line.separator"));
+        sb.append(System.lineSeparator());
         for (int i = 0; i < hist.length; i++) {
-            sb.append(i + 1).append(":");
+            sb.append(i + 1).append(':');
             // 帯を作る
-            for (int j = 0; j < hist[i]; j += dx) {
-                sb.append('■');
-            }
+            for (int j = 0; j < hist[i]; j += dx) sb.append('■');
 
             // 一応、帯の末尾に頻度の数を表示させておく
             sb.append('(').append(hist[i]).append(')');
-            sb.append(System.getProperty("line.separator"));
+            sb.append(System.lineSeparator());
         }
         sb.append("===============");
         System.out.println(sb.toString());
