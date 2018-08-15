@@ -10,8 +10,7 @@
 > xc = hist(ben, breaks = seq(0, 9, 1))$counts
 
 > # ベンフォードの法則の分布
-> ben_p = c()
-> for(num in 1:9) ben_p = append(ben_p, log10(1 + 1 / num))
+> ben_p = log10(1 + 1/(1 : 9))
 
 > # 適合度検定
 > chisq.test(x = xc, p = ben_p)
