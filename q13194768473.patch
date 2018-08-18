@@ -23,8 +23,8 @@ public class SubActivity1 extends Activity implements OnClickListener {
         play_button = (Button) findViewById(R.id.button2);
         play_button.setOnClickListener(this);
         
- +       // 曲を切り替えるボタンのリスナー設定
- +       findViewById(R.id.button3).setOnClickListener(nextMusic);
++       // 曲を切り替えるボタンのリスナー設定
++       findViewById(R.id.button3).setOnClickListener(nextMusic);
     }
 
     public void onClick(View v) {
