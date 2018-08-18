@@ -1,0 +1,82 @@
+import java.io.IOException;
+
+import android.app.Activity;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class SubActivity1 extends Activity implements OnClickListener {
+    MediaPlayer mp = null;
+    Button play_button;
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mp = MediaPlayer.create(this, R.raw.cryonix);
+
+        play_button = (Button) findViewById(R.id.button2);
+        play_button.setOnClickListener(this);
+        
+ +       // 曲を切り替えるボタンのリスナー設定
+ +       findViewById(R.id.button3).setOnClickListener(nextMusic);
+    }
+
+    public void onClick(View v) {
+        if (mp.isPlaying()) { //再生中
+            play_button.setText("Music Start");
+            mp.stop();
+            try {
+                mp.prepare();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else { //停止中
+            play_button.setText("Music Stop");
+            mp.start();
+        }
+    }
+
+
++    /** 再生曲リスト */
++    private final int[] MUSIC_LIST = {
++        R.raw.cryonix,
++        R.raw.xxxxxxx,
++        R.raw.xxxxxxx,
++    };
+
++    /**
++     * 次の曲再生ボタンのリスナー
++     */
++    OnClickListener nextMusic = new OnClickListener() {
++        /** 曲の順番を管理 */
++        int mMusicIndex = 0;
++
++        @Override public void onClick(View v) {
++            mMusicIndex++; // 曲の順番を更新
++            boolean isPlay = mp.isPlaying(); // 現状の再生状態を取得
++
++            // MediaPlayerの状態を「再生 or 停止」⇒「アイドル」⇒「終了」にする
++            // これにより、MediaPlayerのインスタンスを破棄できる
++            mp.reset();
++            mp.release();
++
++            // 前のMediaPlayerを破棄して、次の曲でMediaPlayerを作り直す
++            mp = MediaPlayer.create(getApplicationContext(), MUSIC_LIST[mMusicIndex])
++
++            // 曲変更前が再生状態だたら、この曲も再生から開始する
++            if (isPlay) {
++                mp.start();
++            }
++        }
++    };
+
+}
