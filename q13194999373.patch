@@ -1,0 +1,21 @@
+public void fileread() {
+    try {
++        int lines = (int) new BufferedReader(new FileReader("Data_Sport_Dayholding2.csv")).lines().count();
++        satisfaction_M = new double[lines][];
+        FileReader frm = new FileReader("Data_Sport_Dayholding2.csv");
+        BufferedReader brm = new BufferedReader(frm);
+        while((line_m = brm.readLine()) != null) {
+            j = 0;
+            token_m = new StringTokenizer(line_m,",");
++            satisfaction_M[i] = new double[token_m.countTokens()];
+            while (token_m.hasMoreTokens()) {
+                satisfaction_M[i][j] = Double.parseDouble(token_m.nextToken());
+                j += 1;
+            }
+            i += 1;
+        }
+        brm.close();
+    } catch(IOException ex) {
+        ex.printStackTrace();
+    }
+}
