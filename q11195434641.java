@@ -6,7 +6,7 @@ public class AsyncTask extends Activity {
         setContentView(R.layout.activity_async);
 
         // 背景色切り替えタスクを実行
-        new ChangeBackgroundColorTask(findViewById(R.id.button), 0)execute();
+        new ChangeBackgroundColorTask(findViewById(R.id.button), 0).execute();
     }
 }
 
