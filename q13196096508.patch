@@ -1,0 +1,83 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        boolean isNotAllTrue = true;
+
+        int count = 0;
+
+        int col;
+
+        int row;
+
+        String input;
+
+        String[][] arrays = new String[3][3];
+        for (String[] array : arrays) {
+            Arrays.fill(array, " ");
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        while(isNotAllTrue) {
+            System.out.print("[○の番] 縦と横のインデックスを半角スペース区切りで指定してください。>");
+            if((input = scanner.nextLine()).matches("^[0-2][ | ][0-2]$")) {
+
+                row = Character.getNumericValue(input.charAt(0));
+                col = Character.getNumericValue(input.charAt(2));
+                if(arrays[row ][col ].equals(" ")) {
+                    arrays[row ][col ] = "〇";
+                    count++;
+                } else {
+                    System.out.println("エラー：指定された場所は既に入力されています。");
++                    continue;
+                }
+
++                // 後手の入力していいかチェック
++                for(int i = 0; i < 3; i++) {
++                    System.out.println("");
++                    for(int j = 0; j < 3; j++) {
++                        System.out.print("[" + arrays[i][j] + "]");
++                    }
++                }
++
++                System.out.println("");
++                if(count >= 9) {
++                    isNotAllTrue = false;
++                    System.out.println("ゲームを終了します。");
++                }
+
++                while(isNotAllTrue) {
+                    System.out.print("[×の番] 縦と横のインデックスを半角スペース区切りで指定してください。>");
+                    if((input = scanner.nextLine()).matches("^[0-2][ | ][0-2]$")) {
+                        row = Character.getNumericValue(input.charAt(0));
+                        col = Character.getNumericValue(input.charAt(2));
+                        if(arrays[row ][col ].equals(" ")) {
+                            arrays[row ][col ] = "×";
+                            count++;
+                        } else {
+                            System.out.println("エラー：指定された場所は既に入力されています。");
++                            continue;
+                        }
+
+                        for(int i = 0; i < 3; i++) {
+                            System.out.println("");
+                            for(int j = 0; j < 3; j++) {
+                                System.out.print("[" + arrays[i][j] + "]");
+                            }
+                        }
+
+                        System.out.println("");
+                        if(count >= 9) {
+                            isNotAllTrue = false;
+                            System.out.println("ゲームを終了します。");
+                        }
++                        break;
+                    }
++                }
+            }
+        }
+    
+    }
+}
