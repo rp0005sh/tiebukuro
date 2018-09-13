@@ -34,14 +34,15 @@ public class Main {
 +                    continue;
                 }
 
-+                // 後手の入力していいかチェック
-+                for(int i = 0; i < 3; i++) {
-+                    System.out.println("");
-+                    for(int j = 0; j < 3; j++) {
-+                        System.out.print("[" + arrays[i][j] + "]");
-+                    }
-+                }
-+
+
+                for(int i = 0; i < 3; i++) {
+                    System.out.println("");
+                    for(int j = 0; j < 3; j++) {
+                        System.out.print("[" + arrays[i][j] + "]");
+                    }
+                }
+
++                // 後手の入力をしていいのかチェック
 +                System.out.println("");
 +                if(count >= 9) {
 +                    isNotAllTrue = false;
