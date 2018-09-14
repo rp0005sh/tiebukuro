@@ -1,0 +1,52 @@
+int[] x, y;
+int i;
+int r = 7;
+int r2 = 200;// 大きい円の中心座標
+int elli_points = 0;
+float proba = 0;
+
+void setup() {
+    // 小さい円のx座標、y座標の個数
+    x = new int[100];
+    y = new int[100];
+    // 基本設定
+    size(400, 400);
+    background(250, 250);
+    for (i = 0; i < 100; ++i) {
+        x[i] = int(random(0, width));
+        y[i] = int(random(0, height));
+
++        // 円内の点をカウント
++        if ((dist(r2, r2, x[i], y[i])) < 200) {
++            elli_points++;
++        }
+    }
+
++    // 円周率を求める
++    proba = 4 * (float(elli_points) / 100);
+
+    //大きい円の描写
+    strokeWeight(3);
+    stroke(0);
+    noFill();
+    ellipse(r2, r2, 400, 400);
+
+    //スコアの表示
+    println("円の中の点;"+elli_points);
+    println("円周率：" + proba);
+}
+
+//小さい円の配置、大きい円との判定
+void draw() {
+    for (i=0; i<100; ++i) {
+        if ((dist(r2, r2, x[i], y[i])) < 200) {
+            fill(0, 0, 250, 60);
+-            elli_points++;
+        } else {
+            fill(250, 0, 0, 30);
+        }
+        noStroke();
+        ellipse(x[i], y[i], r, r);
+-        proba = 4 * (float(elli_points) / 100);
+    }
+}
