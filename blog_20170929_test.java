@@ -24,7 +24,7 @@ class Main2 {
         long start = System.currentTimeMillis();
 
         int[] arr = java.util.stream.IntStream.range(0, 50000000)
-            .map(n->-n).sorted().map(n -> -n).toArray();
+            .map(n -> -n).sorted().map(n -> -n).toArray();
 
         // 計測完了
         long end = System.currentTimeMillis();
