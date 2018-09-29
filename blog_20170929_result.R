@@ -8,7 +8,7 @@
 
         Welch Two Sample t-test
 
-data:  y and x
+data:  x1 and x2
 t = -137.93, df = 12.089, p-value < 2.2e-16
 alternative hypothesis: true difference in means is less than 0
 95 percent confidence interval:
