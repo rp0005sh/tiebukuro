@@ -9,5 +9,6 @@ class Main {
 
         // 結果出力
         System.out.println(java.util.Arrays.toString(arr));
+        // 結果：[14, 6, 5, 4, 4, 3, 2, -2, -5]になった！成功！
     }
 }
