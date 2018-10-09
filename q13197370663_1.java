@@ -20,8 +20,8 @@ public class Main {
             int[] sum = map.get(tmp[0]);
 
             // データを加算
-            sum[0] += Integer.valueOf(tmp[1]);
-            sum[1] += Integer.valueOf(tmp[2]);
+            sum[0] += Integer.parseInt(tmp[1]);
+            sum[1] += Integer.parseInt(tmp[2]);
         }
 
         // 集計データの出力
