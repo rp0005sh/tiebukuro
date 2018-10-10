@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Ex1 {
+    public static void main(String[] args) {
+        // 入力された数字をint型の数値に変換
+        int iInput = 0;
+        try {
+            iInput = Integer.parseInt(args[0]);
+        } catch(IOException e) {
+        }
+
+        // displayAsterメソッドの呼び出し
+        displayAster(iInput);
+    }
+
+    // ここにdisplayAsterメソッドを作成
+    public static void displayAster(int iInput1) {
+        for (i = 0; i < iInput1; i++) {
+            System.out.print("*");
+        }
+        System.out.println("");
++    }
+}
+
