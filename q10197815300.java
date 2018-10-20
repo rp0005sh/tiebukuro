@@ -26,7 +26,7 @@ public class Main {
 
         // 要件を満たすデータを配列にして取得
         Data[] terget = list.stream()
-        .sorted((e1,e2) -> e2.value - e1.value) // 値で昇順ソート
+        .sorted((e1,e2) -> e2.value - e1.value) // 値で降順ソート
         .limit(num)                             // 上からnum番目までを取り出す
         .toArray(Data[]::new);                  // 配列にする
 
