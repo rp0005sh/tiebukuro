@@ -25,15 +25,15 @@ public class A4Graph {
         {},        // Node[6]から移動できるNode番号
     };
 
-	/**
-	 * 最小コストで移動するルートを探す
-	 * @param startNode 現在地
-	 * @param endNode 目的地
-	 * @param history 移動履歴
-	 * @return 現在地から目的地までにかかる最小コスト
-	 *         移動ルートがない場合は-1を返す
-	 *         移動ルートがループする場合は-1を返す
-	 */
+    /**
+     * 最小コストで移動するルートを探す
+     * @param startNode 現在地
+     * @param endNode 目的地
+     * @param history 移動履歴
+     * @return 現在地から目的地までにかかる最小コスト
+     *         移動ルートがない場合は-1を返す
+     *         移動ルートがループする場合は-1を返す
+     */
     public static int getPath(int startNode, int endNode, List<Integer> history) {
         // 現在地が移動履歴にあるなら、ループしている事になるので-1で抜ける
         if(history.contains(startNode)) return -1;
