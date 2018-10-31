@@ -24,13 +24,13 @@ class A4Graph {
         if(startNode == endNode) return String.valueOf(endNode);
 
         // 現在地から移動可能なNodeを全て探査
-        List<String> pathList = new ArrayList<String>();
+        Set<String> pathList = new HashSet<String>();
         for (int i = 0; i < adjacencyMatrix.length; i++) {
             // 次のノード先を決定
             if(adjacencyMatrix[startNode][i] == 0) continue;
             int nextNode = i;
 
-            // 隣接ノード表をコピーして、現在地を0にする。これにより、次の遷移先から再び現在地に戻ることを抑止
+            // 隣接ノード表をコピーして、「現在地⇒次のNode」を0にする。これにより、のちの遷移で同じルートに入るループを抑止
             int[][] nextMatrix = Arrays.stream(adjacencyMatrix).map(row -> row.clone()).toArray(int[][]::new);
             nextMatrix[startNode][nextNode] = 0;
 
@@ -42,8 +42,25 @@ class A4Graph {
             pathList.add(startNode + "->" + path);
         }
 
-        // パスリストを文字数少ない順に並び替えて、最短ルートを探す。ない場合は"no path"
-        String path = pathList.stream().sorted((p1, p2) -> p1.length() - p2.length()).findFirst().orElse("no path");
-        return path;
+        /** 最短ノードでソート */
+        java.util.Comparator<String> sort1  = (p1, p2) -> p1.split("->").length - p2.split("->").length;
+        /** 最小コストでソート(エクストラ問題？で使用) */
+        java.util.Comparator<String> sort2 = (p1, p2) -> {
+            int sum1 = 0, sum2 = 0, arr[];
+            // p1のコスト計算
+            arr = Arrays.stream(p1.split("->")).mapToInt(Integer::parseInt).toArray();
+            for (int i = 0; i < arr.length - 1; i++)  sum1 += adjacencyMatrix[arr[i]][arr[i+1]];
+            // p2のコスト計算
+            arr = Arrays.stream(p2.split("->")).mapToInt(Integer::parseInt).toArray();
+            for (int i = 0; i < arr.length - 1; i++) sum2 += adjacencyMatrix[arr[i]][arr[i+1]];
+            // 評価
+            return sum1 - sum2;
+        };
+
+        // パスリストを並び替えて、ルートを探す
+        return pathList.stream()
+                .sorted(sort1) // 最短ノードでソート
+              //.sorted(sort2) // 最小コストでソート（こっちでソートする際は先頭のコメントを外す)
+                .findFirst().orElse("no path"); // ルートがない場合は"no path"
     }
 }
