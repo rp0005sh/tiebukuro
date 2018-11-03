@@ -61,8 +61,8 @@ class A4Graph {
      * @return パスのコスト
      */
     static int getCost(int[][] chart, String path) {
-        String[] format = path.replaceAll("(\\d)->","$1->$1,").split("->");
-        return Arrays.stream(format).filter(str -> str.matches("\\d,\\d"))
+        String[] format = path.replaceAll("(\\d+)->","$1->$1,").split("->");
+        return Arrays.stream(format).filter(str -> str.matches("\\d+,\\d+"))
                 .map(str -> Arrays.stream(str.split(",")).mapToInt(Integer::parseInt).toArray())
                 .reduce(0, (cal, arr) -> cal += chart[arr[0]][arr[1]], (sum, cal) -> sum += cal);
     }
