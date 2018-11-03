@@ -45,22 +45,25 @@ class A4Graph {
         /** 最短ノードでソート */
         java.util.Comparator<String> sort1  = (p1, p2) -> p1.split("->").length - p2.split("->").length;
         /** 最小コストでソート(エクストラ問題？で使用) */
-        java.util.Comparator<String> sort2 = (p1, p2) -> {
-            int sum1 = 0, sum2 = 0, arr[];
-            // p1のコスト計算
-            arr = Arrays.stream(p1.split("->")).mapToInt(Integer::parseInt).toArray();
-            for (int i = 0; i < arr.length - 1; i++)  sum1 += adjacencyMatrix[arr[i]][arr[i+1]];
-            // p2のコスト計算
-            arr = Arrays.stream(p2.split("->")).mapToInt(Integer::parseInt).toArray();
-            for (int i = 0; i < arr.length - 1; i++) sum2 += adjacencyMatrix[arr[i]][arr[i+1]];
-            // 評価
-            return sum1 - sum2;
-        };
+        java.util.Comparator<String> sort2 = (p1, p2) -> getCost(adjacencyMatrix, p1) - getCost(adjacencyMatrix, p2);
 
         // パスリストを並び替えて、ルートを探す
         return pathList.stream()
                 .sorted(sort1) // 最短ノードでソート
               //.sorted(sort2) // 最小コストでソート（こっちでソートする際は先頭のコメントを外す)
                 .findFirst().orElse("no path"); // ルートがない場合は"no path"
+    }
+
+    /**
+     * パスからコストを計算する関数
+     * @param chart 使用する隣接ノードのコスト表
+     * @param path コスト計算するパス
+     * @return パスのコスト
+     */
+    static int getCost(int[][] chart, String path) {
+        String[] format = path.replaceAll("(\\d)->","$1->$1,").split("->");
+        return Arrays.stream(format).filter(str -> str.matches("\\d,\\d"))
+                .map(str -> Arrays.stream(str.split(",")).mapToInt(Integer::parseInt).toArray())
+                .reduce(0, (cal, arr) -> cal += chart[arr[0]][arr[1]], (sum, cal) -> sum += cal);
     }
 }
