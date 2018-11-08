@@ -1,0 +1,157 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.Image;
+
+public class XXXXX extends JFrame {
+    public XXXXX() {
+        setSize(750, 500);
+        setTitle("Java Shooting Game");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        MyJPanel myJPanel = new MyJPanel();
+        Container c = getContentPane();
+        c.add(myJPanel); 
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new XXXXX();
+    }
+
+    public class MyJPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
+        // 自機の変数
+        int jiki_x;
+        Image jiki_ima;
+        int jiki_w, jiki_h;
+
+        // 敵機の変数
+        int n;
+        int[] teki_x, teki_y;
+        int[] teki_u;
+        int[] teki_alive;
+        Image teki_ima;
+        int teki_w, teki_h;
+
+        // 自機の弾の変数
+        int jiki_tama_x, jiki_tama_y;
+        int jiki_tama_flg;
+
+        Timer timer;
+
+        public MyJPanel() {
+            // 自機の初期設定
+            ImageIcon icon1 = new ImageIcon("jiki.jpg");
+            jiki_ima = icon1.getImage();
+            jiki_w = jiki_ima.getWidth(this);
+            jiki_h = jiki_ima.getHeight(this);
+            jiki_x = 10;
+
+            // 敵機の初期設定
+            n = 13;
+            teki_x = new int[n];
+            teki_y = new int[n];
+            teki_u = new int[n];
+            teki_alive = new int[n];
+            ImageIcon icon2 = new ImageIcon("teki.jpg");
+            teki_ima = icon2.getImage();
+            teki_w = teki_ima.getWidth(this);
+            teki_h = teki_ima.getHeight(this);
+            for (int i=0; i<n; i++) {
+                teki_x[i] = i * (teki_w) + 100;
+                teki_y[i] = (i%2) * teki_h + 30;
+                teki_u[i] = 10;
+                teki_alive[i] = 1;
+            }
+
+            // 自機の弾の初期設定
+            jiki_tama_x = jiki_tama_y = -100;
+            jiki_tama_flg = 0;
+
+            setResizable(false);
+            setBackground(Color.black);
+
+            addMouseListener(this);
+            addMouseMotionListener(this);
+
+            timer = new Timer(100, this);
+            timer.start();
+        }
+
+        /* MouseListener に関連するメソッド */
+        public void mouseClicked(MouseEvent e) {
+            if (jiki_tama_flg == 0) {
+                jiki_tama_x = jiki_x + jiki_w/2;
+                jiki_tama_y = 400;
+                jiki_tama_flg = 1;
+                
++                // 自機の玉のアクションを開始
++                new Timer(30, mShotAction).start();
+            }
+        }
+        public void mousePressed(MouseEvent e) { }
+        public void mouseReleased(MouseEvent e) { }
+        public void mouseExited(MouseEvent e) { }
+
+        public void mouseEntered(MouseEvent e) { }
+
+        /* MouseMotionListener に関連するメソッド */
+        public void mouseMoved(MouseEvent e) {
+            jiki_x = e.getX(); 
+            repaint();
+        }
+
+        public void mouseDragged(MouseEvent e) { }
+
+        /* ActionListener に関連するメソッド */
+        public void actionPerformed(ActionEvent e) {
+            Dimension d = getSize();
+            if (e.getSource()==timer) {
+                // 敵機を水平方向に動かす
+                for (int i = 0; i < n; i++) {
+                    teki_x[i] += teki_u[i];
+                    if (teki_x[i]<0 || teki_x[i]>(d.width-teki_w)) teki_u[i] = -teki_u[i];
+                }
+
+                // 自機の弾を動かす
+                //XXXXXとして実装
+
+                repaint();
+            }
+
+        }
+
+        /* 画面描画に関連するメソッド */
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            // 自機の描画
+            g.drawImage(jiki_ima, jiki_x, 400, this);
+
+            // 敵機の描画
+            for (int i=0; i<n; i++) { 
+                if (teki_alive[i]==1) g.drawImage(teki_ima, teki_x[i], teki_y[i], this);
+            }
+
+            // 自機の弾の描画
+            if (jiki_tama_flg == 1) {
+                g.setColor(Color.yellow);
+                g.fillOval(jiki_tama_x, jiki_tama_y, 5, 10);
+            }
+        }
+
++        /** 自機の玉の起動アクション */
++        ActionListener mShotAction = e -> {
++            // 玉のy座標を更新して、画面更新
++            jiki_tama_y -= 10;
++            repaint();
++
++            // 玉が画面の外に出たらフラグを戻してタイマーを止める
++            if (jiki_tama_y < 0) {
++                jiki_tama_flg = 0;
++                Timer t = (Timer) e.getSource();
++                t.removeActionListener(this);
++                t.stop();
++            }
++        };
+    }
+}
