@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class watoseki {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
 
         System.out.print("25以下の正の整数を入力してください：");
