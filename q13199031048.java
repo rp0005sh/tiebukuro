@@ -81,7 +81,7 @@ class MyJPanel extends javax.swing.JPanel {
         super.paintComponent(g);
         // 粒子の描画
         for(Point2D.Double p : m) {
-            // とりえあえず、半径を20にしてる
+            // とりえあえず、直径を20にしてる
             g.drawOval((int)p.x, (int)p.y, 20, 20);
         }
 
