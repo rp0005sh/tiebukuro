@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 class Main {
     public static void main(String args[]) {
         JFrame frame = new JFrame();
-        frame.setSize(MyJPanel.WINDOW_WIDTH, MyJPanel.WINDOW_HEIGHT);
+        frame.setSize(500, 500);
         frame.getContentPane().add(new MyJPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -13,9 +13,6 @@ class Main {
 }
 
 class MyJPanel extends javax.swing.JPanel {
-    /** 画面の大きさ 幅と高さ */
-    static final int WINDOW_WIDTH  = 500;
-    static final int WINDOW_HEIGHT = 500;
 
     /** 粒子の座標 */
     final private Point2D.Double[] m;
@@ -24,7 +21,7 @@ class MyJPanel extends javax.swing.JPanel {
     /** 角速度 */
     final double omega;
     /** 並進速度 */
-    double v;
+    Point2D.Double v;
 
 
     /**
@@ -45,23 +42,27 @@ class MyJPanel extends javax.swing.JPanel {
             Arrays.stream(m).mapToDouble(p -> p.x).average().getAsDouble(),
             Arrays.stream(m).mapToDouble(p -> p.y).average().getAsDouble());
         
-        // 角速度(100回描画で1回転)
-        omega = 2 * Math.PI / 100;
-        
+        // 角速度(50回描画で1回転)
+        omega = 2 * Math.PI / 50;
+
         // 並進速度
-        v = 3d;
-        
+        double abs_v = 5d, rnd = Math.random() * 2 * Math.PI;
+        v = new Point2D.Double(abs_v * Math.cos(rnd), abs_v * Math.sin(rnd));
+
         // 30ミリ秒おきに位置座標を更新して、描画更新要求
         new javax.swing.Timer(30, e -> {
 
             // 重心が画面の端に来たらとりあえず折り返す
-            if(g.x < 0 || WINDOW_WIDTH < g.x)v *= -1;
+            if(g.x + v.x < 0 || getWidth()  < g.x + v.x) v.x *= -1;
+            if(g.y + v.y < 0 || getHeight() < g.y + v.y) v.y *= -1;
 
             // 並進運動による位置更新
-            g.x += v;
+            g.x += v.x;
+            g.y += v.y;
+
             // 各粒子の位置更新
             for (Point2D.Double p : m) {
-                double x = p.x + v, y = p.y;
+                double x = p.x + v.x, y = p.y + v.y;
                 p.x = (x - g.x) * Math.cos(omega) - (y - g.y) * Math.sin(omega) + g.x;
                 p.y = (x - g.x) * Math.sin(omega) + (y - g.y) * Math.cos(omega) + g.y;
             }
