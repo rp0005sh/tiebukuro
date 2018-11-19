@@ -10,6 +10,8 @@ public class Main {
             if (tmp > 100) break;    // 100を超えるかチェック。超えてたら終了
             else sum = tmp;          // 100を超えていなければ、合計値を更新
         }
+        
+        // 結果を出力
         System.out.println(i < rand.length
             ? i + "番目で100を超える。100を超える前の合計は" + sum
             : "全部足しても100を超えない");
