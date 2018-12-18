@@ -16,10 +16,9 @@ class Main {
         }
 
         // 出た目の合計
-        for (int i = 0; i < n; i++) {
-            int sum = dice[i][0] + dice[i][1];
-            System.out.println(i+1 + "回目の出目の合計:" + sum);
-        }
+        int sum = 0;
+        for(int i = 0; i < n; i++) sum += dice[i][0] + dice[i][1];
+        System.out.println("出た目の合計:" + sum);
 
         // 出目の割合《出目の回数÷（ユーザが入力した試行回数）》
         // まず、全部の出目の回数をカウント
@@ -30,12 +29,13 @@ class Main {
         }
         // 各目の割合を表示
         for (int i = 0; i < 6; i++) {
-            System.out.println(i + 1 + "の目の割合:" + (float)hist[i] / n);
+            System.out.println(i + 1 + "の目の割合:" + (float)hist[i] / (2*n));
         }
 
         // 総和の出目,2〜12
-        int sum = 0;
-        for(int i = 0; i < 6; i++) sum += (i + 1) * hist[i];
-        System.out.println("総和:" + sum);
+        for (int i = 0; i < n; i++) {
+            int s = dice[i][0] + dice[i][1];
+            System.out.println(i+1 + "回目の総和の出目:" + s);
+        }
     }
 }
