@@ -11,8 +11,8 @@ class Main {
         // サイコロを指定回数振る
         java.util.Random r = new java.util.Random();
         for (int i = 0; i < n; i++) {
-            dice[i][0] = r.nextInt(6) + 1; // 一個目の賽の目(乱数)
-            dice[i][1] = r.nextInt(6) + 1; // 二個目の賽の目(乱数)
+            dice[i][0] = r.nextInt(6) + 1; // 一個目の賽の目(1〜6の乱数)
+            dice[i][1] = r.nextInt(6) + 1; // 二個目の賽の目(1〜6の乱数)
         }
 
         // 出た目の合計
