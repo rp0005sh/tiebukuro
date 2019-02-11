@@ -1,0 +1,70 @@
+import java.io.File; 
+import java.io.IOException; 
+import java.awt.image.BufferedImage; 
+import javax.imageio.ImageIO; 
+
+public class Main 
+{ 
+    public static void main(String[] args) { 
+
+        BufferedImage img = null; 
+        File input_file = null; 
+        String filename = null; 
+
+        if (args.length == 0) { 
+            filename = "./lena.jpg"; 
+        } else { 
+            filename = args[0]; 
+        }
+
+        try { 
+            input_file = new File(filename); 
+            img = ImageIO.read(input_file); 
+            System.out.println("Reading complete."); 
+        } catch(IOException e) { 
+            System.out.println("Error" + e); 
+            System.exit(0); 
+        }
+
+        int ww = img.getWidth(); 
+        int hh = img.getHeight(); 
+
+-        int block_number_x = 4; 
+-        int block_number_y = 4; 
+
+-        int block_pixels_x = ww / block_number_x; 
+-        int block_pixels_y = hh / block_number_y; 
+
++        for (int i = 0; i < ww; i++) { 
++            for (int j = 0; j < hh; j++) { 
+
+                int p = img.getRGB(i, j); 
+                int A = 255;
++                int R = (p & 0x00ff0000) >> 16; // 255;
++                int G = (p & 0x0000ff00) >>  8; // 255;
++                int B = (p & 0x000000ff) >>  0; // 0;
+
++                // 画像の半分より下はグレースケール変換
++                if (j > hh/2) {
++                    int gray = (int)(0.2126 * R + 0.7152 * G + 0.0722 * B);
++                    R = gray;
++                    G = gray;
++                    B = gray;
++                }
+
+                p = (A<<24) | (R<<16) | (G<<8) | B ; 
+
+                img.setRGB(i, j, p); 
+            } 
+        } 
+        // WRITE IMAGE 
+        try { 
+            File output_file = new File("./output.jpg"); 
+            ImageIO.write(img, "jpg", output_file); 
+            System.out.println("Writing complete."); 
+        } catch(IOException e) { 
+            System.out.println("Error: "+e); 
+            System.exit(0); 
+        }
+    }
+}
