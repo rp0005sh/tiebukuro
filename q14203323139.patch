@@ -44,12 +44,12 @@ public class Main
 +                int G = (p & 0x0000ff00) >>  8; // 255;
 +                int B = (p & 0x000000ff) >>  0; // 0;
 
-+                // 画像の半分より下はグレースケール変換
++                // 画像の半分より下は二値変換
 +                if (j > hh/2) {
-+                    int gray = (int)(0.2126 * R + 0.7152 * G + 0.0722 * B);
-+                    R = gray;
-+                    G = gray;
-+                    B = gray;
++                    int color = (0.2126 * R + 0.7152 * G + 0.0722 * B) < 128 ? 0 : 255;
++                    R = color;
++                    G = color;
++                    B = color;
 +                }
 
                 p = (A<<24) | (R<<16) | (G<<8) | B ; 
