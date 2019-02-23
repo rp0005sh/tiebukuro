@@ -35,6 +35,7 @@ public class Main {
                     break;
                 default:
                     System.out.println("入力値不正。「H」か「L」以外が入力されました。");
+                    next = false; // 不正入力は試合中止しておく
             }
         }
     }
