@@ -1,12 +1,12 @@
 public class Main {
 
     public static void main(String[] args) {
-        int N = 1000;
+        int N = 10000;
 
         // 手順1.エラトステネスのふるいを用い、nまでの素因数分解を行い、得られた結果を、配列変数resultに代入
         int[] result = Eratosthenes(N);
 
-        // 1~N(=1000)まで繰り返す
+        // 1~N(=10000)まで繰り返す
         for (int num = 1; num <= N; num++) {
             int n = num;
             int[] pf = new int[N];
