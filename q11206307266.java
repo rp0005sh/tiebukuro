@@ -1,4 +1,4 @@
-public class Main2 {
+public class Main {
 
     public static void main(String[] args) {
         int N = 1000;
@@ -12,7 +12,7 @@ public class Main2 {
             int[] pf = new int[N];
 
             // 手順2, 3 変数i,jを用意し、0を代入する。
-            int i = 0,j = 0;
+            int i = 0, j = 0;
 
             do {
                 // 手順4 result[i]で、nを割った余りが0であれば、その値をpf[j]に代入し、jに1を足す
