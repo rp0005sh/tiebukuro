@@ -15,23 +15,21 @@ class RandomNumber {
 
     // 【check4】実行の都度乱数を返却するメソッドgetNum()を持つ
     // 返却される整数は1からrandMaxまでの大きさのランダムな整数とする。
+    // 乱数の生成はRandomクラスのインスタンスrを生成し、そのメソッドnextDouble()の返却する0.0以上1.0未満を使って行う。
+    Random r = new Random();
     public int getNum() {
-        // 乱数の生成はRandomクラスのインスタンスrを生成し、
-        // そのメソッドnextDouble()の返却する0.0以上1.0未満を使って行う。
-        Random r = new Random(); // ★乱数ジェネレータは毎回インスタンスを生成するものではない。メンバ変数にすべき。仕様がおかしい
-        
         // ◇ nextDouble()を使って0.0以上1.0未満の乱数を発生させる。
         double d = r.nextDouble();
-        
+
         // ◇ 乱数にrandMaxを乗算して、0.0以上randMax未満の乱数にする
         d = randMax * d;
-        
+
         // ◇ int型にキャストを行って0以上randMax未満の整数(0からrandMax-1の整数)にする。
         int num  = (int) d;
-        
+
         // ◇ 整数に + 1をして1からrandMaxの整数にする
         num += 1;
-        
+
         return num;
     }
 }
