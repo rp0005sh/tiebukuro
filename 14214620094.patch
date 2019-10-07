@@ -1,0 +1,75 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.BorderLayout;
++ import java.util.*;
+
+class  SwingTest  extends JFrame implements ActionListener{
+    JLabel label;
+
+    public static void main(String[] args){
+        SwingTest test = new SwingTest("SwingTest");
+
+        test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        test.setVisible(true);
+    }
+
+    SwingTest(String title){
+        setTitle(title);
+        setBounds( 10, 10, 300, 200);
+
+        label = new JLabel("");
+        label.setHorizontalAlignment(JLabel.CENTER);
+
+        JButton btn1 = new JButton("Button 1");
+        btn1.addActionListener(this);
+        btn1.setActionCommand("Button 1");
+
+        JButton btn2 = new JButton("Button 2");
+        btn2.addActionListener(this);
+        btn2.setActionCommand("Button 2");
+
+        JButton btn3 = new JButton("Button 3");
+        btn3.addActionListener(this);
+        btn3.setActionCommand("Button 3");
+
+        JButton btn4 = new JButton("Button 4");
+        btn4.addActionListener(this);
+        btn4.setActionCommand("Button 4");
+
++       JButton btn5 = new JButton("Button 5");
++       btn5.addActionListener(this);
++       btn5.setActionCommand("Button 5");
+
+        JPanel p = new JPanel();
+        p.add(btn1);
+        p.add(btn2);
+        p.add(btn3);
+        p.add(btn4);
++       p.add(btn5);
+
+        getContentPane().add(p, BorderLayout.CENTER);
+        getContentPane().add(label, BorderLayout.PAGE_END);
+    }
+
++   // 履歴を残す
++   List<String> history = new ArrayList<>();
+
+    public void actionPerformed(ActionEvent e){
+        String cmd = e.getActionCommand();
+
++       // コマンドを履歴に追加
++       history.add(cmd);
+
+        if (cmd.equals("Button 1")){
+            label.setText("open");
+        }else if (cmd.equals("Button 2")){
+            label.setText("print");
+        }else if (cmd.equals("Button 3")){
+            label.setText("rename");
+        }else if (cmd.equals("Button 4")){
+            label.setText("move");
++       }else if (cmd.equals("Button 5")){
++           label.setText(history.toString());
++       }
+    }
+}
