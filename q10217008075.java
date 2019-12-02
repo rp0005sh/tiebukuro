@@ -16,6 +16,6 @@ class Main {
         System.out.printf("平均:%.3f%n", ave);
         System.out.printf("標準偏差:%.3f%n", sd);
         System.out.println("偏差値");
-        list.stream().forEach(n -> System.out.printf("%d -> %.3f%n", n, (n - ave) / sd));
+        list.stream().forEach(n -> System.out.printf("%d -> %.3f%n", n, 50 + 10 * (n - ave) / sd));
     }
 }
