@@ -1,39 +1,46 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class Main {
     public static void main(String[] args) throws java.io.IOException {
-        // ファイルを読み込んで、変数に保存
+        // ファイルを読み込み
         List<String> list = Files.lines(Paths.get("data.csv"))
-            .map(l -> l.split(","))
-            .map(arr -> {Arrays.sort(arr); return arr[0] + "," + arr[1];})
-            .collect(java.util.stream.Collectors.toList());
-        
-        // 要素にばらす
+            .map(line -> line.split(","))
+            .map(arr -> Arrays.stream(arr).sorted().collect(Collectors.joining(",")))
+            .collect(Collectors.toList());
+
+        // 読み込みデータを要素にバラす
         List<String> param = list.stream()
-        .map(line -> line.split(","))
-        .flatMap(Arrays::stream)
-        .collect(java.util.stream.Collectors.toList());
-        
-        while (true) {
+            .map(line -> line.split(","))
+            .flatMap(Arrays::stream)
+            .collect(Collectors.toList());
+
+        String[] tmp;
+        boolean check;
+        do {
             // リスト内の値をシャッフルする   
             java.util.Collections.shuffle(param);
 
             // 二個ずつに分ける
-            String[] tmp =
-            java.util.stream.IntStream(0, param.size())
-            .collect(Collectors.groupingBy(i -> i/2, i -> param.get(i)))
-            .values().stream().map(l -> l.toArray(new String[0]))
-            .toArray(String[]::new);
+            tmp = java.util.stream.IntStream.range(0, param.size()).boxed()
+                .collect(Collectors.groupingBy(i -> i/2))
+                .values().stream()
+                .map(l -> l.stream().map(param::get).collect(Collectors.joining(",")))
+                .toArray(String[]::new);
 
-            // check
-            Arrays.stream(tmp)
-            .map(arr -> {Arrays.sort(arr); return arr[0] + "," + arr[1];})
-            .filter(list::contains)
-            
-            
-        }
-        
+            // 読み込んだデータと同じものがないかチェック
+            check = Arrays.stream(tmp)
+                .map(line -> line.split(","))
+                .map(arr -> Arrays.stream(arr).sorted().collect(Collectors.joining(",")))
+                .anyMatch(list::contains);
+
+        // 同じものがあればNG。シャッフルからやり直し
+        } while (check);
+
+        // 結果を表示する
+        Arrays.stream(tmp).forEach(System.out::println);
     }
 }
