@@ -1,0 +1,152 @@
+/**
+ * Book.java
+ */
+public class Book extends Item {
+    //出版社
+    private String publisher;
+
+    //暗黙的スーパー・コンストラクター Item() は未定義です。別のコンストラクターを明示的に呼び出す必要があります
+    //上記のエラーが出て解決策がわかりません。
+    public Book(String name, int price, String publisher) {
++       // 継承元のクラス(Item)のコンストラクタ呼び出しが必要です
++       super(name, price);
+        this.publisher = publisher;
+    }
+
+    @Override
+    public void printDetail() {
++       System.out.printf("商品名：%s\t価格：\\%d\t出版社：%s%n", getName(), getPrice(), publisher);
+    }
+}
+
+----------------------------------------------------------------------------
+
+/**
+ * CD.java
+ */
+public class CD extends Item {
+-   // Itemで定義されている変数なので、メンバ変数には不要
+-   private String name;
+-   private int price;
+    private String artist;
+
+    //- 暗黙的スーパー・コンストラクター Item() は未定義です。別のコンストラクターを明示的に呼び出す必要があります
+    //- メソッド・ブレークポイント:CD [エントリー] - CD(String, int, String)
+    //上記のエラーが出て、解決策がわかりません。
+    public CD(String name, int price, String artist) {
++       // 継承元のクラス(Item)のコンストラクタ呼び出しが必要です
++       super(name, price);
+-       // Itemで定義されている変数なので、メンバ変数には不要
+-       this.name = name;
+-       this.price = price;
+        this.artist = artist;
+    }
+
+    @Override
+    public void printDetail() {
+        System.out.printf("商品名：%s\t価格：\\%d\tアーティスト：%s%n", getName(), getPrice(), artist);
+    }
+}
+
+----------------------------------------------------------------------------
+
+/**
+ * Item.java
+ */
+public class Item {
+
+    //商品名
+    private String name;
+    //価格
+    private int price;
+
+    public Item(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void printDetail() {
++       // 表示のフォーマットが期待値と異なったので修正
++       System.out.printf("商品名：%s\t価格：\\%d%n", name, price);
+-       System.out.println(name);
+-       System.out.println(price);
+    }
+}
+
+----------------------------------------------------------------------------
+
+/**
+ * Kadai3.java
+ */
+- // このBookをインポートする意味はありません。
+- import java.awt.print.Book;
+
+public class Kadai3 {
+    public static void main(String[] args) {
+        // 空の買い物かごを生成
+        ShoppingBag myBag = new ShoppingBag();
+        // 買い物かごに商品を入れる
+        myBag.add( new CD( "アルバムA", 3150, "アーティストA" ) );
+        myBag.add( new Book( "英和辞典", 5250, "○○出版" ) );
+        myBag.add( new CD( "シングルB", 1050, "アーティストB" ) );
+        myBag.add( new CD( "シングルC", 840, "アーティストC" ) );
+        myBag.add( new Book( "日本地図", 550, "◇◇株式会社" ) );
+        myBag.add( new Item( "チョコレート", 200 ) );
+        // 買い物かごの中身を表示
+        myBag.show();
+        // 合計金額計算
+        System.out.println( "合計金額：\\" + myBag.allSum() );
+    }
+}
+
+----------------------------------------------------------------------------
+/**
+ * ShoppingBag.java
+ */
+import java.util.ArrayList;
+
+public class ShoppingBag {
+-   private ArrayList<String> itemList;
++   // 商品を格納するListなので、型は「Item」です。
++   private ArrayList<Item> itemList;
+
+-   public void  ShoppingBag() {
++   // コンストラクタは戻り値は不要「void」は消す
++   public ShoppingBag() {
+-       ArrayList<String> itemList = new ArrayList<>();
++       // メンバ変数の初期化にはクラス名をつけない。つけるとローカル変数扱いです。
++       itemList = new ArrayList<>();
+    }
+
+    public void add( Item item) {
+        //itemList の最後に商品を追加
+        //追加が上手くいきません。 itemList = item;
++       itemList.add(item);
+    }
+
+    public void show() {
++       System.out.println("買い物かごリスト---------");
+        //買い物かご」の中身を表示
++       itemList.forEach(item -> item.printDetail());
++       System.out.println("-------------------------");
+    }
+
+    public int allSum() {
+        int allSum = 0;
+        //金額を合計する。
+        for(int i = 0; i < itemList.size(); i++) {
++           // itemListからアイテムを一つずつ取り出して、allSumに価格を加算していく
++           Item item = itemList.get(i);
++           allSum += item.getPrice();
+        }
+        return allSum;
+    }
+}
