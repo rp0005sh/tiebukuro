@@ -11,13 +11,14 @@ class Main {
 
         // 月ごとの合計値を求める
         final int n = sc.nextInt();
-        Map<Integer, Long> map = Stream.generate(() -> new int[] {sc.nextInt(), sc.nextInt(), sc.nextInt()})
-            .limit(n).collect(groupingBy(arr -> arr[1], summingLong(arr -> arr[0])));
+        Map<Integer, Long> map = Stream
+            .generate(() -> new int[] {sc.nextInt(), sc.nextInt(), sc.nextInt()}).limit(n)
+            .collect(groupingBy(arr -> arr[1], summingLong(arr -> arr[0])));
 
         // １月から順番に合計値を表示
         map.entrySet().stream().sorted((e1, e2) -> e1.getKey() - e2.getKey())
-            .map(e -> Month.of(e.getKey()).getDisplayName(SHORT, US) + ":" + e.getValue())
-            .forEach(System.out::println);
+            .forEach(e -> System.out.printf("%s:%d%n",
+                Month.of(e.getKey()).getDisplayName(SHORT, US), e.getValue()));
 
         // 総計値を表示する
         System.out.printf("Total:%d%n",
