@@ -1,5 +1,5 @@
 import java.util.stream.IntStream;
-import  java.math.BigInteger;
+import java.math.BigInteger;
 import java.util.regex.*;
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class Main {
                 String.format("%" + N + "s", num.toString(2)).replace(" ","0")
                 : "組み合わせはありません");
     }
-    
+
     /** コンボの正規表現 */
     static final Pattern PATTERN = Pattern.compile("1+");
 
@@ -42,7 +42,7 @@ public class Main {
         while (m.find()) k.add(m.group().length());
         return k.stream().mapToInt(Integer::intValue).toArray();
     }
-    
+
     /**
      * 引数の数値が存在するノーツの組み合わせなのかチェック
      * @param num チェック対象
@@ -51,7 +51,7 @@ public class Main {
     static boolean check(BigInteger num) {
         return num.toString(2).length() <= N;
     }
-    
+
     /**
      * スコアを計算する
      * @param k コンボ数群
