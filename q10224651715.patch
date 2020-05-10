@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+class Main {
+
+    public static void main(String[] args) {
+        // キー入力
+        Scanner number = new Scanner(System.in);
+
+        // 素数か否かをチェックする整数を入力
+        int n = number.nextInt();
+
+-       // ここの行の先頭が「-」になっている部分がメソッドになる
+-       int i;
+-       for(i = 2; i < n; i++){
+-           if(n%i == 0){
+-               // もし、n÷iの余りが0ならば終了
+-               break;
+-           }
+-       }
+
+-       // ここの条件文がメソッドでのチェックになるので変更
+-       if(n==i){
++       if(isPrimeNumber(n)){
+            // nとiが等しければ、
+            // n-1までの整数で割りきれなかったので
+            // その数は素数である
+            System.out.println(n + "は素数である。");
+        }
+        else {
+            System.out.println(n + "は素数ではない。");
+        }
+        number.close();
+    }
+
++   /**
++    * 素数のチェックをするメソッド
++    * @param n チェック対象
++    * @return true 素数、false 素数ではない
++    */
++   static boolean isPrimeNumber(int n) {
++       int i;
++       for (i = 2; i < n; i++) {
++           if (n%i == 0) {
++               // もし、n÷iの余りが0ならば終了
++               break;
++           }
++       }
++
++       if (n == i) return true;
++       else return false;
++   }
+}
