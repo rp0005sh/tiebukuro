@@ -1,6 +1,6 @@
 class AtodashiJanken {
     public static void main(String[] args) {
-        // 1.randomな数値を生成して、変数に退避しておきます。
+        // 1.ランダムな数値を生成して、変数に退避しておきます。
         int npc = new java.util.Random().nextInt(3);
 
         // 2.生成されたランダムな数値を元に「0:グー, 1:チョキ, 2:パー」を画面表示します。
