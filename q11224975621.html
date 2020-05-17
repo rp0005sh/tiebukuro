@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta chraset="utf-8">
+        <script>
+            /** if文で条件分岐させるボタンイベント */
+            var onClick1 = function() {
+                let data = prompt("好きな音楽ジャンルは？");
+
+                var music;
+                if (data == "洋楽")     music = "Bohemian Rhapsody";
+                else if(data == "演歌") music = "天城越え";
+                else                    music = "ありません";
+
+                alert("おすすめのCDは「"+ music +"」");
+            }
+
+            /** switch文で条件分岐させるボタンイベント */
+            var onClick2 = function() {
+                let data = prompt("好きな音楽ジャンルは？");
+
+                var music;
+                switch(data) {
+                    case "洋楽": music = "Bohemian Rhapsody";break;
+                    case "演歌": music = "天城越え";         break;
+                    default    : music = "ありません";
+                }
+
+                alert("おすすめのCDは「"+ music +"」");
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value = "if-else文"     onclick = "onClick1()" />
+        <input type="button" value = "switch-case文" onclick = "onClick2()" />
+    </body>
+</html>
