@@ -12,7 +12,7 @@ public class Main5Activity extends AppCompatActivity {
         // ループで数値を詰めていく
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                // 配置するグリッドViewの位置指定[横：i][縦：j]
+                // 配置するグリッドレイアウトの位置指定[横：i][縦：j]
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(i), GridLayout.spec(j));
                 param.width = param.height = 100;
 
