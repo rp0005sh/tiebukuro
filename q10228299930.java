@@ -9,10 +9,9 @@ class Main {
         while(true) {
             System.out.print("二次方程式のパラメータを入力してください > ");
             String line = sc.nextLine();
-            // 「quit」が入力されたら終了させる
-            if (line.equals("quit")) {break;}
 
-            else {
+            if (line.equals("quit")) {break;} // 「quit」が入力されたら終了させる
+            else { // そうじゃないとき
                 try {
                     // 文字列から数値の配列へ変換し、二次方程式解法メソッド実行
                     double[] param = Arrays.stream(line.split(",")).mapToDouble(Double::parseDouble).toArray();
