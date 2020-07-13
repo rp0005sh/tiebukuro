@@ -21,6 +21,7 @@ class Main {
                             .plusSeconds(r); // そこから、乱数で取得した秒数を加算
 
         // フォーマットの形式を合わせて出力
-        System.out.println(rand.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+        String result = rand.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        System.out.println(result);
     }
 }
