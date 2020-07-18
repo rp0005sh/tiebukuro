@@ -18,16 +18,15 @@ class Main {
 
 class Key {
     final int hashCode;
-    Key(int code) {
-        hashCode = code;
-    }
+    Key(int code) { hashCode = code;}
 
+    /** 同値確認　フィールドのhashCodeが同じなら、同じと判断する */
     @Override
     public boolean equals(Object o) {
         return (o instanceof Key) ? ((Key)o).hashCode == this.hashCode : false;
     }
+
+    /** ハッシュコード生成 ハッシュコードはフィールドの変数とする */
     @Override
-    public int hashCode() {
-        return this.hashCode;
-    }
+    public int hashCode() { return this.hashCode; }
 }
