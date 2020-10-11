@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         switch (event.getAction()) {
             // 手を放し、ドラッグが終了した時の処理。ドラッグしているViewを表示させる。
             case DragEvent.ACTION_DRAG_ENDED:
-                new Handler().post(() -> mDragView.setAlpha(1));
+                getMainExecutor().execute(() -> mDragView.setAlpha(1));
                 break;
 
             // ドラッグ中他のViewの上に乗る時の処理。Viewの位置を入れ替える
             case DragEvent.ACTION_DRAG_LOCATION:
-                new Handler().post(() -> swap(v, mDragView));
+                getMainExecutor().execute(() -> swap(v, mDragView));
                 break;
         }
         return true;
