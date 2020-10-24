@@ -96,13 +96,17 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 +     * @param length シャッフルする対象の量
 +     */
 +    private void shufflePanel(int length) {
++        // 現在のパネル並び順を取得
++        View[] panels = new View[length];
++        for (int i = 0; i < length; i++) panels[i] = mParent.getChildAt(i);
++
++        // シャッフルアルゴリズム（フィッシャー–イェーツのシャッフル）
 +        for (int i = length - 1; 0 < i; i--) {
-+            int index = i, rnd = mRandom.nextInt(i);
-+            getMainExecutor().execute(()-> {
-+                View v1 = mParent.getChildAt(index);
-+                View v2 = mParent.getChildAt(rnd);
-+                swap(v1, v2);
-+            });
++            int rnd = mRandom.nextInt(i);
++            View v1 = panels[i], v2 = panels[rnd];
++            panels[i] = v2; panels[rnd] = v1;
++            // 実際のGridLayout上のViewの並びの入れ替え
++            swap(v1, v2);
 +        }
 +    }
 }
