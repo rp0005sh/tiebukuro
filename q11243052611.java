@@ -11,7 +11,7 @@ class Main {
       int num = scan.nextInt();
       number.add(num);
     }
-  	number.sort(naturalOrder());
+    number.sort(naturalOrder());
     System.out.println(number);
   }
 }
