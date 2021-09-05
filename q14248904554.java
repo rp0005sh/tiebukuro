@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
   
     /** 全ボタンの色を初期化する*/
-    public void initButtonColor() {
+    private void initButtonColor() {
         IntStream.of(R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn10, R.id.btn11, R.id.btn12,R.id.btn13)
                 .mapToObj(this::findViewById).forEach(v1 ->
                 ((View) v1).setBackgroundTintList(ColorStateList.valueOf(
