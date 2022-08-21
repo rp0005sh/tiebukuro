@@ -5,7 +5,7 @@ class Main {
         Scanner sc = new Scanner(System.in);
 
         // 入力値を変換
-        String[] str = sc.nextLine().split("(?<=^SET \\d)"); // 右記の配列に変換str = {"SET X", " 数値"}
+        String[] str = sc.nextLine().split("(?<=^SET \\d)"); // 入力情報を、右の形の配列に変換str = {"SET X", " 数値"}
         String command = str[0]; // 「SET 1」 or 「SET 2」
         int num = Integer.parseInt(str[1].substring(1)); // 入力値の数値
 
