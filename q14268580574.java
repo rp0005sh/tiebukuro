@@ -32,7 +32,7 @@ class Kaijo {
     
     // 階乗の計算
     private static BigInteger kaijo(int n) {
-        return IntStream.range(1,n + 1).mapToObj(BigInteger::valueOf)
+        return IntStream.range(2, n + 1).mapToObj(BigInteger::valueOf)
             .reduce(BigInteger.ONE, BigInteger::multiply);
     }
 }
