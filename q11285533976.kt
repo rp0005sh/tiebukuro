@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         // 10秒後自動でスイッチをOFFにする
         MainScope().launch {
             delay(10000)
-            // Switchにリスナーを解除してから、スイッチOFF。その後、リスナー再設定
+            // Switchのリスナーを解除してから、スイッチOFF。その後、リスナー再設定
             sw.apply {
                 setOnCheckedChangeListener(null)
                 isChecked = false
